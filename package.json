@@ -1,6 +1,6 @@
 {
-  "name": "ad-time-picker",
-  "version": "1.0.0",
+  "name": "react-timepicker",
+  "version": "0.1.0",
   "description": "",
   "main": "./build/index.js",
   "scripts": {
@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/carlbleick/ad-time-picker.git"
+    "url": "git+https://github.com/carlbleick/react-timepicker.git"
   },
   "author": "carlbleick",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/carlbleick/ad-time-picker/issues"
+    "url": "https://github.com/carlbleick/react-timepicker/issues"
   },
   "dependencies": {
     "react": "^17.0.0",
@@ -35,5 +35,5 @@
     "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0"
   },
-  "homepage": "https://github.com/carlbleick/ad-time-picker#readme"
+  "homepage": "https://github.com/carlbleick/react-timepicker#readme"
 }
