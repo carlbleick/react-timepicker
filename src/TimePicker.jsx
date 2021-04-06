@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./styles.css";
 import useOuterClick from "./useOuterClick";
 
-const SelectWrapper = ({
+const TimeSelectInterface = ({
   hours,
   setHours,
   minutes,
@@ -22,7 +22,7 @@ const SelectWrapper = ({
   return (
     <>
       <div className='row wrapper'>
-        <NumberSelector
+        <TimeSelect
           value={hours}
           setValue={setHours}
           onKeyDown={keyDownHours}
@@ -30,7 +30,7 @@ const SelectWrapper = ({
           autoFocus={true}
         />
         <p> : </p>
-        <NumberSelector
+        <TimeSelect
           value={minutes}
           setValue={setMinutes}
           onKeyDown={keyDownMinutes}
@@ -42,7 +42,7 @@ const SelectWrapper = ({
   );
 };
 
-const NumberSelector = ({
+const TimeSelect = ({
   value,
   setValue,
   onKeyDown,
@@ -96,7 +96,7 @@ const NumberSelector = ({
   );
 };
 
-const TimePicker = ({ value, onChange }) => {
+const TimePicker = ({ value, onChange, inputClass = '' }) => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
@@ -131,12 +131,13 @@ const TimePicker = ({ value, onChange }) => {
       >
         <input
           type='text'
+          className={inputClass}
           value={`${hours}:${minutes} Uhr`}
           readOnly
           onFocus={(e) => setShowPicker(true)}
         />
         {showPicker && (
-          <SelectWrapper
+          <TimeSelectInterface
             hours={hours}
             setHours={setHours}
             minutes={minutes}
