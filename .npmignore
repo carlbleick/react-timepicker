@@ -1,4 +1,3 @@
 .vscode
-node_modules
-src/index.jsx
-src/index.html
+.babelrc
+copy-styles.js
