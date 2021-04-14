@@ -20,13 +20,13 @@
     "url": "https://github.com/carlbleick/react-timepicker/issues"
   },
   "devDependencies": {
-    "@babel/cli": "7.13.0",
-    "@babel/core": "7.13.8",
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.8",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/preset-env": "7.13.8",
-    "@babel/preset-react": "7.12.13",
-    "react": "17.0.0",
-    "react-dom": "17.0.0"
+    "@babel/preset-env": "^7.13.8",
+    "@babel/preset-react": "^7.12.13",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   },
   "peerDependencies": {
     "react": ">= 16.10.2",
