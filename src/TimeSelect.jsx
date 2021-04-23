@@ -1,4 +1,10 @@
-import React, { useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  toInterval_Input,
+  toInterval_Step,
+  decreaseToStep,
+  increaseToStep,
+} from "./helpers";
 
 const TimeSelect = ({
   value,
@@ -11,44 +17,87 @@ const TimeSelect = ({
   const inputRef = useRef(null);
   const selectInput = () => inputRef.current.focus();
 
-  const leadingZero = (number) => {
-    if (number <= 0) return "00";
-    if (number >= 10) return number;
-    return `0${number}`;
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const keyListener = (e) => {
+      if (active) {
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+          setValue(increaseToStep(value, step, limit));
+          selectInput();
+        }
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          setValue(decreaseToStep(value, step, limit));
+          selectInput();
+        }
+        if (e.ctrlKey && ["v", "V"].includes(e.key)) {
+          e.preventDefault();
+        }
+        if (e.key === "0" && value == 0) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    const wheelListener = (e) => {
+      if (active) {
+        if (e.deltaY < 0) {
+          setValue(increaseToStep(value, step, limit));
+          selectInput();
+        } else if (e.deltaY > 0) {
+          setValue(decreaseToStep(value, step, limit));
+          selectInput();
+        }
+      }
+    };
+
+    if (active) {
+      document.addEventListener("keydown", keyListener);
+      document.addEventListener("wheel", wheelListener);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", keyListener);
+      document.removeEventListener("wheel", wheelListener);
+    };
+  }, [active, value]);
+
+  const handleChangeInput = (event) => {
+    setValue(toInterval_Input(event.target.value, limit));
   };
 
-  const adjustToInterval = (value) => {
-    value = parseInt(value);
-    if (!value || value < 0) return "00";
-    if (value > limit) return limit; // limit.length always == 2
-    return leadingZero(value);
-  };
   return (
     <div className='col'>
       <div
-        onClick={(e) => {
-          setValue(adjustToInterval(parseInt(value) + step));
+        onClick={(_) => {
+          setValue(increaseToStep(value, step, limit));
           selectInput();
         }}
-        className={`${value == limit ? 'indicator-disabled' : 'indicator'} triangle-up`}
+        className={`indicator triangle-up`}
       ></div>
       <input
         ref={inputRef}
         type='number'
-        step={step}
         className='number-input'
         value={value}
-        onChange={(e) => setValue(adjustToInterval(e.target.value))}
+        step={null}
+        onChange={handleChangeInput}
         onKeyDown={onKeyDown}
         autoFocus={autoFocus}
-        onFocus={(e) => e.target.select()}
+        onFocus={(e) => {
+          e.target.select();
+          setActive(true);
+        }}
+        onBlur={(_) => setActive(false)}
       />
       <div
-        onClick={(e) => {
-          setValue(adjustToInterval(parseInt(value) - step));
+        onClick={(_) => {
+          setValue(decreaseToStep(value, step, limit));
           selectInput();
         }}
-        className={`${value == 0 ? 'indicator-disabled' : 'indicator'} triangle-down`}
+        className={`indicator triangle-down`}
       ></div>
     </div>
   );

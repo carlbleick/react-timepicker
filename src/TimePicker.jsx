@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import TimeSelectInterface from "./TimeSelectInterface"
+import TimeSelectInterface from "./TimeSelectInterface";
 import useOuterClick from "./useOuterClick";
 
-const TimePicker = ({ value, onChange, inputClass = '' }) => {
+const TimePicker = ({ value, onChange, inputClass = "" }) => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
@@ -21,26 +21,25 @@ const TimePicker = ({ value, onChange, inputClass = '' }) => {
     setMinutes(time[1]);
   }, [value]);
 
+  const withLeadingZero = (number) => {
+    if (number <= 0) return "00";
+    if (number >= 10) return number;
+    return `0${number}`;
+  };
+
   const pickerRef = useOuterClick((e) => {
     setShowPicker(false);
   });
 
   return (
     <>
-      <div
-        ref={pickerRef}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "5%",
-          position: "relative",
-        }}
-      >
+      <div ref={pickerRef}>
         <input
           type='text'
           className={inputClass}
-          value={`${hours}:${minutes} Uhr`}
+          value={`${withLeadingZero(hours)}:${withLeadingZero(minutes)} Uhr`}
           readOnly
+          tabIndex={showPicker ? -1 : 0}
           onFocus={(e) => setShowPicker(true)}
         />
         {showPicker && (

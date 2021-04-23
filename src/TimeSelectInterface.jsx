@@ -1,5 +1,5 @@
 import React from "react";
-import TimeSelect from "./TimeSelect"
+import TimeSelect from "./TimeSelect";
 
 const TimeSelectInterface = ({
   hours,
@@ -10,6 +10,9 @@ const TimeSelectInterface = ({
 }) => {
   const keyDownHours = (e) => {
     if (e.key === "Escape") return setShowPicker(false);
+    if (e.key === "Tab" && e.shiftKey) {
+      return setTimeout((_) => setShowPicker(false), 0);
+    }
     return ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
   };
 
@@ -40,6 +43,5 @@ const TimeSelectInterface = ({
     </>
   );
 };
-
 
 export default TimeSelectInterface;

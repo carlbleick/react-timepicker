@@ -12,7 +12,7 @@
 
 .wrapper {
   position: absolute;
-  top: 100%;
+  /* top: 100%; */
   /* left: 50%; */
   gap: 1rem;
   background: white;
@@ -32,15 +32,15 @@
 .indicator {
   cursor: pointer;
   display: inline-block;
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
 
   border-top: 2.5px solid rgb(190, 3, 3);
   border-right: 2.5px solid rgb(190, 3, 3);
   transition: all 0.15s ease;
 }
 
-.indicator-disabled {
+/* .indicator-disabled {
   display: inline-block;
   width: 10px;
   height: 10px;
@@ -49,13 +49,12 @@
   border-top: 2.5px solid rgb(145, 145, 145);
   border-right: 2.5px solid rgb(145, 145, 145);
   transition: all 0.15s ease;
-}
+} */
 
 .indicator:hover {
-  border-top: 3px solid rgb(165, 4, 4);
-  border-right: 3px solid rgb(165, 4, 4);
+  border-top: 2.5px solid rgb(165, 4, 4);
+  border-right: 2.5px solid rgb(165, 4, 4);
 }
-
 
 .triangle-up {
   transform: rotate(-45deg);
