@@ -1,77 +1,74 @@
-.row {
+#time-picker input {
+  border: 1px solid #d9d9d9;
+  padding: 5px 10px;
+}
+
+#time-picker .tp-row {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
-.col {
+#time-picker .tp-col {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 3px;
 }
 
-.wrapper {
+#time-picker .tp-wrapper {
   position: absolute;
-  /* top: 100%; */
-  /* left: 50%; */
+  z-index: 1;
   gap: 1rem;
   background: white;
   border-radius: 0.25rem;
   padding: 1rem;
+  align-items: center;
   --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+#time-picker .tp-wrapper * {
+  font-weight: 500;
+}
 
-.number-input {
+#time-picker .number-input {
   width: 3rem;
   text-align: center;
 }
 
-.indicator {
+#time-picker .indicator {
   cursor: pointer;
   display: inline-block;
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 
   border-top: 2.5px solid rgb(190, 3, 3);
   border-right: 2.5px solid rgb(190, 3, 3);
   transition: all 0.15s ease;
 }
 
-/* .indicator-disabled {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  cursor: default;
-
-  border-top: 2.5px solid rgb(145, 145, 145);
-  border-right: 2.5px solid rgb(145, 145, 145);
-  transition: all 0.15s ease;
-} */
-
-.indicator:hover {
+#time-picker .indicator:hover {
   border-top: 2.5px solid rgb(165, 4, 4);
   border-right: 2.5px solid rgb(165, 4, 4);
 }
 
-.triangle-up {
+#time-picker .triangle-up {
   transform: rotate(-45deg);
 }
 
-.triangle-down {
+#time-picker .triangle-down {
   transform: rotate(135deg);
 }
 
 /* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+#time-picker input::-webkit-outer-spin-button,
+#time-picker input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 /* Firefox */
-input[type="number"] {
+#time-picker input[type="number"] {
   -moz-appearance: textfield;
 }

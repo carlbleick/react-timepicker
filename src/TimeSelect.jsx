@@ -69,7 +69,7 @@ const TimeSelect = ({
   };
 
   return (
-    <div className='col'>
+    <div className='tp-col'>
       <div
         onClick={(_) => {
           setValue(increaseToStep(value, step, limit));

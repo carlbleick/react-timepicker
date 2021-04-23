@@ -23,7 +23,7 @@ const TimeSelectInterface = ({
 
   return (
     <>
-      <div className='row wrapper'>
+      <div className='tp-row tp-wrapper'>
         <TimeSelect
           value={hours}
           setValue={setHours}
@@ -31,7 +31,7 @@ const TimeSelectInterface = ({
           limit={23}
           autoFocus={true}
         />
-        <p> : </p>
+        <span> : </span>
         <TimeSelect
           value={minutes}
           setValue={setMinutes}

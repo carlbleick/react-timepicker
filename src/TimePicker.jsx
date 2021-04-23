@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import TimeSelectInterface from "./TimeSelectInterface";
 import useOuterClick from "./useOuterClick";
 
-const TimePicker = ({ value, onChange, inputClass = "" }) => {
+const TimePicker = ({ value, onChange, inputClass = "", style = {} }) => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
@@ -16,6 +16,7 @@ const TimePicker = ({ value, onChange, inputClass = "" }) => {
   }, [hours, minutes]);
 
   useEffect(() => {
+    if (!value) return
     let time = value.split(":");
     setHours(time[0]);
     setMinutes(time[1]);
@@ -33,7 +34,7 @@ const TimePicker = ({ value, onChange, inputClass = "" }) => {
 
   return (
     <>
-      <div ref={pickerRef}>
+      <div id="time-picker" ref={pickerRef} style={style}>
         <input
           type='text'
           className={inputClass}
