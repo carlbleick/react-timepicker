@@ -12,14 +12,36 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {} }) => {
   useEffect(() => {
     if (!hours && !minutes) return;
     if (`${hours}:${minutes}` === value) return;
-    onChange(`${hours}:${minutes}`);
+    if (typeof value === "string") {
+      onChange(`${hours}:${minutes}`);
+    } else if (typeof value === "number") {
+      const [h, m] = msIntoTime(value);
+      if (h == hours && m == minutes) return;
+      onChange(new Date(value).setHours(hours, minutes, 0, 0));
+    }
   }, [hours, minutes]);
 
   useEffect(() => {
-    if (!value) return
-    let time = value.split(":");
-    setHours(time[0]);
-    setMinutes(time[1]);
+    if (!value) return;
+    if (typeof value === "number") {
+      const [hours, minutes] = msIntoTime(value);
+      setHours(hours);
+      setMinutes(minutes);
+    } else if (typeof value === "string") {
+      let time = value.split(":");
+      if (time.length != 2 || isNaN(time[0]) || isNaN(time[1])) {
+        console.error(
+          `Invalid argument "${value}", use a timestamp or "hh:mm" format instead `
+        );
+      } else {
+        setHours(time[0]);
+        setMinutes(time[1]);
+      }
+    } else {
+      console.error(
+        `Invalid argument "${value}", use a timestamp or "hh:mm" format instead `
+      );
+    }
   }, [value]);
 
   const withLeadingZero = (number) => {
@@ -28,13 +50,20 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {} }) => {
     return `0${number}`;
   };
 
+  const msIntoTime = (timestamp) => {
+    let date = new Date(timestamp);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return [hours, minutes];
+  };
+
   const pickerRef = useOuterClick((e) => {
     setShowPicker(false);
   });
 
   return (
     <>
-      <div id="time-picker" ref={pickerRef} style={style}>
+      <div id='time-picker' ref={pickerRef} style={style}>
         <input
           type='text'
           className={inputClass}
