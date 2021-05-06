@@ -13,7 +13,11 @@ const toInterval_Step = (value, step, limit) => {
 };
 
 const increaseToStep = (value, step, limit) => {
-  return toInterval_Step(parseInt(value) + (step - (parseInt(value) % step)), step, limit);
+  return toInterval_Step(
+    parseInt(value) + (step - (parseInt(value) % step)),
+    step,
+    limit
+  );
 };
 
 const decreaseToStep = (value, step, limit) => {
@@ -21,4 +25,15 @@ const decreaseToStep = (value, step, limit) => {
   return toInterval_Step(parseInt(value) - subtrahend, step, limit);
 };
 
-export { toInterval_Input, toInterval_Step, increaseToStep, decreaseToStep }
+const withLeadingZeros = (value) => {
+  if (value < 10) return `0${value}`;
+  return value;
+};
+
+export {
+  toInterval_Input,
+  toInterval_Step,
+  increaseToStep,
+  decreaseToStep,
+  withLeadingZeros,
+};

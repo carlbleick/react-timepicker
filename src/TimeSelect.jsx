@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
   toInterval_Input,
-  toInterval_Step,
   decreaseToStep,
   increaseToStep,
+  withLeadingZeros,
 } from "./helpers";
 
 const TimeSelect = ({
@@ -18,8 +18,13 @@ const TimeSelect = ({
   const selectInput = () => inputRef.current.focus();
 
   const [active, setActive] = useState(false);
+  const [inputValue, setInputValue] = useState(() => withLeadingZeros(value));
 
   useEffect(() => {
+    if (value !== inputValue) {
+      setInputValue(withLeadingZeros(value));
+    }
+
     const keyListener = (e) => {
       if (active) {
         if (e.key === "ArrowUp") {
@@ -81,7 +86,7 @@ const TimeSelect = ({
         ref={inputRef}
         type='number'
         className='number-input'
-        value={value}
+        value={inputValue}
         step={null}
         onChange={handleChangeInput}
         onKeyDown={onKeyDown}
