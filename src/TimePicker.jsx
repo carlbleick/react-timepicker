@@ -10,7 +10,7 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = 
   const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => {
-    if (hours === null && minutes === null) return;
+    if (hours === null && minutes === null) return onChange(null);
     if (value === null) return onChange(new Date(value).setHours(hours, minutes, 0, 0));
     if (typeof value === "number") {
       const [h, m] = msIntoTime(value);
