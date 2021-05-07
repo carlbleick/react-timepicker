@@ -26,6 +26,7 @@ const decreaseToStep = (value, step, limit) => {
 };
 
 const withLeadingZeros = (value) => {
+  if (value === null) return "00";
   if (value < 10) return `0${value}`;
   return value;
 };

@@ -1,6 +1,36 @@
+#time-picker {
+  position: relative;
+}
+
 #time-picker input {
   border: 1px solid #d9d9d9;
   padding: 5px 10px;
+}
+
+#time-picker .tp-clear {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  margin: 0;
+}
+
+#time-picker .tp-clear-icon::after {
+  content: "\1F7AA"; /* cross icon */
+  font-size: 14px;
+  font-style: normal;
+  color: #aaa;
+  display: inline-block;
+  line-height: 1;
+  height: 15px;
+  width: 15px;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 #time-picker .tp-row {
@@ -28,6 +58,7 @@
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+
 #time-picker .tp-wrapper * {
   font-weight: 500;
 }

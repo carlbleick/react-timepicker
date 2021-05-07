@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import TimeSelectInterface from "./TimeSelectInterface";
 import useOuterClick from "./useOuterClick";
 
-const TimePicker = ({ value, onChange, inputClass = "", style = {} }) => {
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
+const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = false }) => {
+  const [hours, setHours] = useState(null);
+  const [minutes, setMinutes] = useState(null);
 
   const [showPicker, setShowPicker] = useState(false);
 
@@ -44,6 +44,13 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {} }) => {
     }
   }, [value]);
 
+  useEffect(() => {
+    if (showPicker && hours === null && minutes === null) {
+      setHours(0);
+      setMinutes(0);
+    }
+  }, [showPicker])
+
   const withLeadingZero = (number) => {
     if (number <= 0) return "00";
     if (number >= 10) return number;
@@ -57,6 +64,11 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {} }) => {
     return [hours, minutes];
   };
 
+  const clearTime = () => {
+    setHours(null);
+    setMinutes(null);
+  }
+
   const pickerRef = useOuterClick((e) => {
     setShowPicker(false);
   });
@@ -67,11 +79,17 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {} }) => {
         <input
           type='text'
           className={inputClass}
-          value={`${withLeadingZero(hours)}:${withLeadingZero(minutes)} Uhr`}
+          value={(hours === null && minutes === null) ? '' : `${withLeadingZero(hours)}:${withLeadingZero(minutes)} Uhr`}
           readOnly
           tabIndex={showPicker ? -1 : 0}
           onFocus={(e) => setShowPicker(true)}
         />
+        {showClear && hours !== null && minutes !== null && (
+          <div className="tp-clear">
+            <i className="tp-clear-icon" onClick={clearTime} />
+          </div>
+        )}
+
         {showPicker && (
           <TimeSelectInterface
             hours={hours}
