@@ -12,13 +12,13 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = 
   useEffect(() => {
     if (!hours && !minutes) return;
     if (`${hours}:${minutes}` === value) return;
-    if (typeof value === "string") {
-      onChange(`${hours}:${minutes}`);
-    } else if (typeof value === "number") {
+    if (typeof value === "number" || value === null) {
       const [h, m] = msIntoTime(value);
       if (h == hours && m == minutes) return;
       onChange(new Date(value).setHours(hours, minutes, 0, 0));
-    }
+    } else if (typeof value === "string") {
+      onChange(`${hours}:${minutes}`);
+    } 
   }, [hours, minutes]);
 
   useEffect(() => {
