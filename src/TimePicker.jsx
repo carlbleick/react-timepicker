@@ -18,7 +18,7 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = 
       onChange(new Date(value).setHours(hours, minutes, 0, 0));
     } else if (typeof value === "string") {
       onChange(`${hours}:${minutes}`);
-    } 
+    }
   }, [hours, minutes]);
 
   useEffect(() => {
@@ -34,8 +34,8 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = 
           `Invalid argument "${value}", use a timestamp or "hh:mm" format instead `
         );
       } else {
-        setHours(time[0]);
-        setMinutes(time[1]);
+        setHours(parseInt(time[0]));
+        setMinutes(parseInt(time[1]));
       }
     } else {
       console.error(
