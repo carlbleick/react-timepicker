@@ -21,7 +21,7 @@
 }
 
 #time-picker .tp-clear-icon::after {
-  content: "\1F7AA"; /* cross icon */
+  content: "\00D7"; /* simple cross icon */
   font-size: 14px;
   font-style: normal;
   color: #aaa;
