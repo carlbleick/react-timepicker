@@ -3,16 +3,25 @@ import React, { useState, useEffect } from "react";
 import TimeSelectInterface from "./TimeSelectInterface";
 import useOuterClick from "./useOuterClick";
 
-const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = false }) => {
-  const [hours, setHours] = useState(null);
-  const [minutes, setMinutes] = useState(null);
+const TimePicker = ({
+  value,
+  onChange,
+  inputClass = "",
+  style = {},
+  showClear = false,
+}) => {
+  const [hours, setHours] = useState("unset");
+  const [minutes, setMinutes] = useState("unset");
 
   const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => {
-    if (hours === null && minutes === null) return onChange(null);
-    if (value === null) return onChange(new Date(value).setHours(hours, minutes, 0, 0));
-    if (typeof value === "number") {
+    if (hours == "unset" && minutes == "unset") return;
+    if (hours === null && minutes === null && value !== null) {
+      return onChange(null);
+    } else if (value === null && hours !== null && minutes !== null) {
+      return onChange(new Date(value).setHours(hours, minutes, 0, 0));
+    } else if (typeof value === "number") {
       const [h, m] = msIntoTime(value);
       if (h == hours && m == minutes) return;
       onChange(new Date(value).setHours(hours, minutes, 0, 0));
@@ -20,15 +29,14 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = 
   }, [hours, minutes]);
 
   useEffect(() => {
-    if (!value) return;
-    if (typeof value === "number") {
+    if (value === null) {
+      clearTime();
+    } else if (typeof value === "number") {
       const [hours, minutes] = msIntoTime(value);
       setHours(hours);
       setMinutes(minutes);
     } else {
-      console.error(
-        `Invalid argument "${value}", use a timestamp instead`
-      );
+      console.error(`Invalid argument "${value}", use a timestamp instead`);
     }
   }, [value]);
 
@@ -37,7 +45,7 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = 
       setHours(0);
       setMinutes(0);
     }
-  }, [showPicker])
+  }, [showPicker]);
 
   const withLeadingZero = (number) => {
     if (number <= 0) return "00";
@@ -55,7 +63,7 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = 
   const clearTime = () => {
     setHours(null);
     setMinutes(null);
-  }
+  };
 
   const pickerRef = useOuterClick((e) => {
     setShowPicker(false);
@@ -67,14 +75,18 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = 
         <input
           type='text'
           className={inputClass}
-          value={(hours === null && minutes === null) ? '' : `${withLeadingZero(hours)}:${withLeadingZero(minutes)} Uhr`}
+          value={
+            hours === null && minutes === null
+              ? ""
+              : `${withLeadingZero(hours)}:${withLeadingZero(minutes)} Uhr`
+          }
           readOnly
           tabIndex={showPicker ? -1 : 0}
           onFocus={(e) => setShowPicker(true)}
         />
         {showClear && hours !== null && minutes !== null && (
-          <div className="tp-clear">
-            <i className="tp-clear-icon" onClick={clearTime} />
+          <div className='tp-clear'>
+            <i className='tp-clear-icon' onClick={clearTime} />
           </div>
         )}
 
