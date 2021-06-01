@@ -16,9 +16,6 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = 
       const [h, m] = msIntoTime(value);
       if (h == hours && m == minutes) return;
       onChange(new Date(value).setHours(hours, minutes, 0, 0));
-    } else if (typeof value === "string") {
-      if (`${hours}:${minutes}` === value) return;
-      onChange(`${hours}:${minutes}`);
     }
   }, [hours, minutes]);
 
@@ -28,19 +25,9 @@ const TimePicker = ({ value, onChange, inputClass = "", style = {}, showClear = 
       const [hours, minutes] = msIntoTime(value);
       setHours(hours);
       setMinutes(minutes);
-    } else if (typeof value === "string") {
-      let time = value.split(":");
-      if (time.length != 2 || isNaN(time[0]) || isNaN(time[1])) {
-        console.error(
-          `Invalid argument "${value}", use a timestamp or "hh:mm" format instead `
-        );
-      } else {
-        setHours(parseInt(time[0]));
-        setMinutes(parseInt(time[1]));
-      }
     } else {
       console.error(
-        `Invalid argument "${value}", use a timestamp or "hh:mm" format instead `
+        `Invalid argument "${value}", use a timestamp instead`
       );
     }
   }, [value]);
